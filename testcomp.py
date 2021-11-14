@@ -85,5 +85,5 @@ send(0)
 send(0)
 assert(sim.io.RDY_receive == 0)
 send(0)
-send(1) # TODO: why need extra?
+send(1)
 assert(receive() == 0)
