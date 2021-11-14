@@ -1,6 +1,6 @@
 from pyverilator import PyVerilator
 
-verilog_path = ['.', '../bsc/src/Verilog/']
+verilog_path = ['../bsc/src/Verilog/']
 
 sim = PyVerilator.build('mkTransNoStutter.v', verilog_path=verilog_path)
 
@@ -48,6 +48,8 @@ assert(sim.io.RDY_receive == 0)
 send(0)
 assert(receive() == 0)
 
+import shutil
+shutil.rmtree('./obj_dir')
 sim = PyVerilator.build('mkComp.v', verilog_path=verilog_path)
 
 reset()
