@@ -30,6 +30,18 @@ def receive():
     tick()
     return sim.io.receive.value
 
+def send_receive(c):
+    assert(sim.io.RDY_send == 1)
+    assert(sim.io.RDY_receive == 1)
+    sim.io.send_c = c
+    sim.io.EN_send = 1
+    sim.io.EN_receive = 1
+    tick()
+    sim.io.EN_send = 0
+    sim.io.EN_receive = 0
+    tick()
+    return sim.io.receive.value
+
 reset()
 send(1)
 send(1)
@@ -98,4 +110,16 @@ send(1)
 send(1)
 assert(sim.io.RDY_receive == 0)
 send(1)
-assert(receive() == 1)
+assert(send_receive(0) == 1)
+send(0)
+send(0)
+send(0)
+send(0)
+send(0)
+send(0)
+send(0)
+assert(sim.io.RDY_receive == 0)
+send(0)
+tick()
+tick()
+assert(sim.io.RDY_receive == 1)
